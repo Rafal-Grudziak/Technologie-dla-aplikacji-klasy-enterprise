@@ -1,0 +1,7 @@
+@model MvcNews.Models.NewsItem
+
+<h1>News Details</h1>
+
+<p><strong>Date:</strong> @Model.TimeStamp.ToShortDateString()</p>
+<p><strong>Text:</strong> @Model.Text</p>
+<a href="/News">Back to list</a>

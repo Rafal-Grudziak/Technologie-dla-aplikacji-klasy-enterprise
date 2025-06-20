@@ -1,0 +1,28 @@
+@model IEnumerable<MvcNews.Models.NewsItem>
+
+<h1>News List</h1>
+<p><a href="/News/Create">Add New</a></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Text</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.TimeStamp.ToShortDateString()</td>
+            <td>@item.Text</td>
+            <td>
+                <a href="/News/Edit/@item.Id">Edit</a> |
+                <a href="/News/Details/@item.Id">Details</a> |
+                <a href="/News/Delete/@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
