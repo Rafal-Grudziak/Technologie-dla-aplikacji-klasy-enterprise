@@ -4,7 +4,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import lab.data.ComplaintRepository;
+
 import lab.dto.ComplaintDTO;
 import lab.services.ComplaintService;
 
@@ -12,40 +12,40 @@ import java.util.List;
 
 @RequestScoped
 @Path("/complaints")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ComplaintResource {
 
     @Inject
     private ComplaintService service;
 
     @GET
-    @Produces(jakarta.ws.rs.core.MediaType.APPLICATION_JSON)
     public List<ComplaintDTO> getAllComplaints(@QueryParam("status") String status) {
         return service.findAll(status);
     }
+
+
     @GET
     @Path("{id}")
-    @Produces(jakarta.ws.rs.core.MediaType.APPLICATION_JSON)
     public ComplaintDTO getComplaint(@PathParam("id") Long id) {
         return service.find(id);
     }
+
     @POST
-    @Consumes(jakarta.ws.rs.core.MediaType.APPLICATION_JSON)
     public void postComplaint(ComplaintDTO complaint) {
         service.create(complaint);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes(jakarta.ws.rs.core.MediaType.APPLICATION_JSON)
-    public void putComplaint(@PathParam("id") Long id, ComplaintDTO
-            complaint) {
+    public void putComplaint(@PathParam("id") Long id, ComplaintDTO complaint) {
         service.edit(complaint);
     }
 
     @DELETE
     @Path("{id}")
     public void deleteComplaint(@PathParam("id") Long id) {
-        service.remove(service.find(id));
+        service.remove(id);
     }
 
     @GET
@@ -54,4 +54,6 @@ public class ComplaintResource {
     public String checkStatus(@PathParam("id") Long id) {
         return service.find(id).getStatus();
     }
+
+
 }

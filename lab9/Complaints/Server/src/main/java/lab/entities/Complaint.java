@@ -3,31 +3,35 @@ package lab.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 import java.time.LocalDate;
 
-@Entity
-@NamedQuery(name = "Complaint.findByStatus", query =
-        "SELECT c FROM Complaint c WHERE c.status = :status"
+@NamedQuery(
+        name = "Complaint.findByStatus",
+        query = "SELECT c FROM Complaint c WHERE c.status = :status"
 )
-@Table(name = "complaint")
+@Entity
 public class Complaint {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @NotNull
     private LocalDate complaintDate;
+
     @NotNull
     @Size(min = 1, max = 60)
     private String complaintText;
+
     @NotNull
     @Size(min = 1, max = 60)
     private String author;
+
     @NotNull
     @Size(min = 1, max = 6)
     private String status;
+
+    // Gettery i Settery
 
     public Long getId() {
         return id;
